@@ -1,7 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from CustomCiphers import *
 import cgitb 
 cgitb.enable(format = 'text')
+
+from CustomCiphers import magic_square, gamma # Магический квадрат (Перестановка)
+from NumpyHill import hill_cip # Хилла (Замены)
 
 def onClick ( self ):
     index = self.comb_cip.currentIndex ( )
@@ -13,6 +15,10 @@ def onClick ( self ):
     res = ''
     if (index == 0):
         res = magic_square ( source, isEnc )
+    elif (index == 1):
+    	res = hill_cip ( source, isEnc )
+    elif (index == 2):
+    	res = gamma ( source, isEnc )
 
     self.t_enc.setText ( res )
 
@@ -50,7 +56,7 @@ class Ui_MainWindow(object):
         self.comb_cip = QtWidgets.QComboBox(self.centralwidget)
         self.comb_cip.setGeometry(QtCore.QRect(10, 100, 141, 31))
         self.comb_cip.addItem("Перестановка")
-        self.comb_cip.addItem("Замена")
+        self.comb_cip.addItem("Замена (RU)")
         self.comb_cip.addItem("Гаммирование")
         self.comb_cip.addItem("Комбинированный")
         self.comb_cip.addItem("С открытым ключом")

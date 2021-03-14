@@ -8,7 +8,7 @@ def nearest_square ( n ):
         sq += 1
     return sq
 
-def create_magic_square ( num ):
+def create_magic_square ( num ): # Создаём магический квадрат размерностью num X num
     N = nearest_square ( num )
     arr = [ [ '' for x in range(N) ] for y in range(N) ] 
 
@@ -25,7 +25,7 @@ def create_magic_square ( num ):
             i, j = newi, newj
     return [ arr, N ]
 
-def magic_square ( s, rev ):
+def magic_square ( s, rev ): # Корректная реализация. Повторная прогонка для длинных слов не даёт нужного результата
     l = len ( s )
     output = ''
     spec_char = '_'
@@ -34,8 +34,34 @@ def magic_square ( s, rev ):
     Matrix, size = square[ 0 ], square[ 1 ]
     toCip = s + ( spec_char * ( size**2 - l ) )
 
+    if rev:
+        output = [ '' for x in range ( size**2 ) ]
+        toCip = [ s[ i:i+size ] for i in range(0, len(s), size)]
+
     for i in range ( size ):
         for j in range ( size ):
-            output += toCip[ Matrix[ i ][ j ] - 1 ]
+            if rev:
+                output[ Matrix[ i ][ j ] - 1 ] = toCip[ i ][ j ]
+            else:
+                output += toCip[ Matrix[ i ][ j ] - 1 ]
 
-    return output.replace ( spec_char, '' )[ ::-1 ] if rev else output
+    return ''.join ( output ).replace ( spec_char, '' ) if rev else output
+
+# Гаммирование
+
+def gamma ( s, rev ):
+	key = 'мойключ'
+	key += key * ceil ( len ( s ) / len ( key ) ) # Расширяем
+	toCip = [ ]
+	if rev:
+		sp = s.split()
+		for i in range ( len ( sp ) ):
+			toCip += [ chr ( int ( sp[ i ], 16 ) ^ ord ( key[ i ] ) ) ]
+			#toCip += [ chr ( ord ( sp[ i ] ) ^ ord ( key[ i ] ) ) ]
+	else:
+		for i in range ( len ( s ) ):
+			toCip += [ '{0:02x}'.format ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
+			#toCip += [ chr ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
+
+	return ('' if rev else ' ').join ( toCip )
+	#return ''.join ( toCip )
