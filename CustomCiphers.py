@@ -34,15 +34,8 @@ def magic_square ( s, rev ):
     Matrix, size = square[ 0 ], square[ 1 ]
     toCip = s + ( spec_char * ( size**2 - l ) )
 
-    if rev:
-        output = [ '' for x in range ( size**2 ) ]
-        toCip = [ s[ i:i+size ] for i in range(0, len(s), size)]
-
     for i in range ( size ):
         for j in range ( size ):
-            if rev:
-                output[ Matrix[ i ][ j ] - 1 ] = toCip[ i ][ j ]
-            else:
-                output += toCip[ Matrix[ i ][ j ] - 1 ]
+            output += toCip[ Matrix[ i ][ j ] - 1 ]
 
-    return ''.join ( output ).replace ( spec_char, '' ) if rev else output
+    return output.replace ( spec_char, '' )[ ::-1 ] if rev else output
