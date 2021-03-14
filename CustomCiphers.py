@@ -1,4 +1,5 @@
 from math import sqrt, ceil
+from string import ascii_uppercase
 
 # Магический квадрат
 def nearest_square ( n ):
@@ -65,3 +66,62 @@ def gamma ( s, rev ):
 
     return ('' if rev else ' ').join ( toCip )
     #return ''.join ( toCip )
+
+# Комбинированный ( ADFGVX )
+ADFGVX_en = { }
+ADFGVX_ru = { }
+alphabet_en = list ( ascii_uppercase )
+alphabet_ru = list ( 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ' )
+
+def ADFGVXgen ( ):
+    key = [ 'A', 'D', 'F', 'G', 'V', 'H' ]
+
+    for i in range ( len ( key ) ):
+        for j in range ( len ( key ) ):
+            # RU
+            ADFGVX_ru[ key[ i ] + key[ j ] ] = alphabet_ru [ 0 ] if len ( alphabet_ru ) > 0 else '-'
+            if len ( alphabet_ru ) > 0:
+                alphabet_ru.pop ( 0 )
+            #EN
+            ADFGVX_en[ key[ i ] + key[ j ] ] = alphabet_en [ 0 ] if len ( alphabet_en ) > 0 else '-'
+            if len ( alphabet_en ) > 0:
+                alphabet_en.pop ( 0 )
+
+ADFGVXgen ( )
+
+def dictSearch ( v, dic ):
+    for key, val in dic.items():
+        if val == v:
+            return key
+
+def combine_cip ( s, rev ):
+    source = s.upper ( ).split ( ) if rev else s.upper ( )
+    toCip = [ ]
+
+    for i in range ( len ( source ) ):
+        letter = ''
+        if rev:
+            letter = ADFGVX_ru [ source[ i ] ].lower ( )
+        else:
+            letter = dictSearch ( source[ i ], ADFGVX_ru ).lower ( )
+        toCip += [ letter ]
+
+    return ('' if rev else ' ').join ( toCip )
+
+''' Версия для английского алфавита
+
+def combine_cip ( s, rev ):
+    source = s.upper ( ).split ( ) if rev else s.upper ( )
+    toCip = [ ]
+
+    for i in range ( len ( source ) ):
+        letter = ''
+        if rev:
+            letter = ADFGVX_en [ source[ i ] ]
+        else:
+            letter = dictSearch ( source[ i ], ADFGVX_en )
+        toCip += [ letter ]
+
+    return ('' if rev else ' ').join ( toCip )
+
+'''
