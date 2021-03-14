@@ -50,18 +50,18 @@ def magic_square ( s, rev ): # Корректная реализация. Пов
 # Гаммирование
 
 def gamma ( s, rev ):
-	key = 'мойключ'
-	key += key * ceil ( len ( s ) / len ( key ) ) # Расширяем
-	toCip = [ ]
-	if rev:
-		sp = s.split()
-		for i in range ( len ( sp ) ):
-			toCip += [ chr ( int ( sp[ i ], 16 ) ^ ord ( key[ i ] ) ) ]
-			#toCip += [ chr ( ord ( sp[ i ] ) ^ ord ( key[ i ] ) ) ]
-	else:
-		for i in range ( len ( s ) ):
-			toCip += [ '{0:02x}'.format ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
-			#toCip += [ chr ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
+    key = 'мойключ'
+    key += key * ceil ( len ( s ) / len ( key ) ) # Расширяем
+    toCip = [ ]
+    if rev:
+        sp = s.split()
+        for i in range ( len ( sp ) ):
+            toCip += [ chr ( int ( sp[ i ], 16 ) ^ ord ( key[ i ] ) ) ]
+            #toCip += [ chr ( ord ( sp[ i ] ) ^ ord ( key[ i ] ) ) ]
+    else:
+        for i in range ( len ( s ) ):
+            toCip += [ '{0:02x}'.format ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
+            #toCip += [ chr ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
 
-	return ('' if rev else ' ').join ( toCip )
-	#return ''.join ( toCip )
+    return ('' if rev else ' ').join ( toCip )
+    #return ''.join ( toCip )

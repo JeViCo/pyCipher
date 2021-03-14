@@ -16,9 +16,9 @@ def onClick ( self ):
     if (index == 0):
         res = magic_square ( source, isEnc )
     elif (index == 1):
-    	res = hill_cip ( source, isEnc )
+        res = hill_cip ( source, isEnc )
     elif (index == 2):
-    	res = gamma ( source, isEnc )
+        res = gamma ( source, isEnc )
 
     self.t_enc.setText ( res )
 
@@ -58,7 +58,7 @@ class Ui_MainWindow(object):
         self.comb_cip.addItem("Перестановка")
         self.comb_cip.addItem("Замена (RU)")
         self.comb_cip.addItem("Гаммирование")
-        self.comb_cip.addItem("Комбинированный")
+        self.comb_cip.addItem("Комбинированный (CAPS ON)")
         self.comb_cip.addItem("С открытым ключом")
         self.comb_cip.addItem("Хеш-функция (MD5)")
         self.comb_cip.setFont(font)
