@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cgitb 
-cgitb.enable(format = 'text')
+cgitb.enable ( format = 'text' )
 
-from CustomCiphers import magic_square, gamma, combine_cip # Магический квадрат (Перестановка)
+from CustomCiphers import magic_square, gamma, combine_cip, rsa # Магический квадрат (Перестановка)
 from NumpyHill import hill_cip # Хилла (Замены)
 
 def onClick ( self ):
@@ -21,6 +21,8 @@ def onClick ( self ):
         res = gamma ( source, isEnc )
     elif (index == 3):
         res = combine_cip ( source, isEnc )
+    elif (index == 4):
+        res = rsa ( source, isEnc )
 
     self.t_enc.setText ( res )
 
@@ -62,7 +64,6 @@ class Ui_MainWindow(object):
         self.comb_cip.addItem("Гаммирование")
         self.comb_cip.addItem("Комбинированный (RU)")
         self.comb_cip.addItem("С открытым ключом")
-        self.comb_cip.addItem("Хеш-функция (MD5)")
         self.comb_cip.setFont(font)
 
         self.l_cip = QtWidgets.QLabel("Шифрование", self.centralwidget)

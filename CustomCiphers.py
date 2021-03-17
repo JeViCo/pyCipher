@@ -1,5 +1,14 @@
 from math import sqrt, ceil
 from string import ascii_uppercase
+from NumpyHill import hill_cip
+from rsa import keyGen, encrypt, decrypt
+
+# Общее
+def toHex ( n ):
+    return '{0:02x}'.format ( n )
+
+def fromHex ( n ):
+    return int ( n, 16 )
 
 # Магический квадрат
 def nearest_square ( n ):
@@ -57,11 +66,11 @@ def gamma ( s, rev ):
     if rev:
         sp = s.split()
         for i in range ( len ( sp ) ):
-            toCip += [ chr ( int ( sp[ i ], 16 ) ^ ord ( key[ i ] ) ) ]
+            toCip += [ chr ( fromHex ( sp[ i ]  ) ^ ord ( key[ i ] ) ) ]
             #toCip += [ chr ( ord ( sp[ i ] ) ^ ord ( key[ i ] ) ) ]
     else:
         for i in range ( len ( s ) ):
-            toCip += [ '{0:02x}'.format ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
+            toCip += [ toHex ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
             #toCip += [ chr ( ( ord ( s[ i ] ) ^ ord ( key[ i ] ) ) ) ]
 
     return ('' if rev else ' ').join ( toCip )
@@ -125,3 +134,19 @@ def combine_cip ( s, rev ):
     return ('' if rev else ' ').join ( toCip )
 
 '''
+
+# RSA
+
+keyPublic, keyPrivate = keyGen ( )
+
+def rsa ( s, rev ):
+    if not rev:
+        txt = encrypt ( keyPublic, s )
+        for i in range ( len ( txt ) ):
+            txt[ i ] = toHex ( txt[ i ] )
+        return ' '.join ( txt )
+    else:
+        txt = s.split ( )
+        for i in range ( len ( txt ) ):
+            txt[ i ] = fromHex ( txt[ i ] )
+        return decrypt ( keyPrivate, txt )
